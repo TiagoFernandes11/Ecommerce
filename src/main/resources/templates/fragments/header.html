@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Estilos CSS -->
+    <style>
+        /* Resetando margens e preenchimentos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Estilo do cabeçalho */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding-top: 25px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center; /* Alinha os itens no centro */
+            gap: 20px; /* Espaçamento entre os itens */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            border-radius: 4px; /* Bordas arredondadas */
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        /* Estilos adicionais */
+        nav ul li a:focus, nav ul li a:active {
+            outline: none;
+            background-color: #444;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Início do cabeçalho -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">Página Inicial</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/dashboard">Dashboard</a>
+            </li>
+            <!-- Verificar se o usuário está logado -->
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/usuario/login">Fazer Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/logout">Sair</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/usuario/update">Alterar Conta</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Fim do cabeçalho -->
+
+</body>
+</html>
