@@ -83,8 +83,17 @@
             display: inline-block;
         }
 
+        /* Links de autenticação */
         .auth-links a {
             margin-left: 15px;
+            color: white; /* Deixa o texto branco */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+
+        /* Remove o sublinhado ao passar o mouse */
+        .auth-links a:hover {
+            text-decoration: none;
+            background-color: transparent;
         }
 
         /* Responsividade para dispositivos móveis */
@@ -124,13 +133,13 @@
         <!-- Links de autenticação e carrinho -->
         <div class="auth-links">
             <li sec:authorize="!isAuthenticated()">
-                <a href="/usuario/login">Login</a>
+                <a href="/person/login">Login</a>
             </li>
             <li sec:authorize="isAuthenticated()">
-                <a href="/usuario/update">Minha Conta</a>
+                <a href="/person/update/register">Minha Conta</a>
             </li>
             <li sec:authorize="isAuthenticated()">
-                <a href="/logout">Sair</a>
+                <a href="/person/logout">Sair</a>
             </li>
 
             <!-- Carrinho de compras -->

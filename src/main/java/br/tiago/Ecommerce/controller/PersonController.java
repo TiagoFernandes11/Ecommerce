@@ -1,17 +1,25 @@
 package br.tiago.Ecommerce.controller;
 
 import br.tiago.Ecommerce.model.Person;
+import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.service.PersonService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Controller
 @RequestMapping("/person")
@@ -52,13 +60,61 @@ public class PersonController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String error){
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout){
         ModelAndView modelAndView = new ModelAndView("login");
         if(error != null){
             modelAndView.addObject("error", "Credenciais invalidas");
             return modelAndView;
         }
+        if(logout != null){
+            modelAndView.addObject("error", "Logout efetuado com sucesso");
+            return modelAndView;
+        }
         modelAndView.setViewName("home");
         return modelAndView;
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null){
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/person/login?logout=true";
+    }
+
+    @GetMapping("/update/register")
+    public ModelAndView displayUpdateRegister(){
+        return new ModelAndView("update-user");
+    }
+
+    @PostMapping("/update/register")
+    public ModelAndView updateRegister(@RequestParam String name, @RequestParam String email, Authentication authentication){
+        ModelAndView modelAndView = new ModelAndView("update-user");
+        personService.updateRegister(name, email, authentication);
+        modelAndView.addObject("error", "cadastro alterado com sucesso");
+        return modelAndView;
+    }
+
+    @GetMapping("/update/password")
+    public ModelAndView displayUpdatePassword(){
+        return new ModelAndView("update-password");
+    }
+
+    @PostMapping("/update/password")
+    public ModelAndView updatePassword(@RequestParam String oldPassword,
+                                       @RequestParam String newPassword,
+                                       @RequestParam String confirmNewPassword,
+                                       Authentication authentication){
+        ModelAndView modelAndView = new ModelAndView("update-password");
+        if(personService.updatePassword(oldPassword, newPassword, confirmNewPassword, authentication)){
+            modelAndView.addObject("error", "A senha foi atualizada com sucesso");
+        }
+        else {
+            modelAndView.addObject("error", "Senha antiga é invalida ou as novas senhas não são iguais");
+        }
+        return modelAndView;
+    }
+
 }

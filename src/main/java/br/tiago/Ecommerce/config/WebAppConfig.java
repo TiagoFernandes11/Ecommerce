@@ -22,7 +22,7 @@ public class WebAppConfig {
                          request.requestMatchers("/","/home").permitAll()
                                  .requestMatchers("/person/register").permitAll()
                                  .requestMatchers("/person/login").permitAll()
-                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
+                                 .requestMatchers("/person/update/**").authenticated()
                                  .anyRequest().authenticated()
                 );
 
