@@ -127,6 +127,9 @@
             <li><a href="/products">Produtos</a></li>
             <li><a href="/about">Sobre Nós</a></li>
             <li><a href="/contact">Contato</a></li>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/product/register" class="btn btn-primary">Cadastrar produtos</a>
+            </div>
         </ul>
 
         <!-- Links de autenticação e carrinho -->
@@ -134,7 +137,7 @@
             <div sec:authorize="!isAuthenticated()">
                 <a href="/person/login">Login</a>
             </div>
-            <div sec:authorize="isAuthenticated()">
+            <div  sec:authorize="hasRole('ROLE_USER')">
                 <a href="/person/profile">Minha Conta</a>
             </div>
             <div sec:authorize="isAuthenticated()">

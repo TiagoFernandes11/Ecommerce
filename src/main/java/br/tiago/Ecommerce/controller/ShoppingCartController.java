@@ -7,7 +7,6 @@ import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.repository.ProductRepository;
 import br.tiago.Ecommerce.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/cart")
@@ -32,10 +32,12 @@ public class ShoppingCartController {
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping
+    @GetMapping("")
     public ModelAndView diplayShoppingCart(Authentication authentication){
-        ModelAndView modelAndView = new ModelAndView("cart");
-        //todo
+        ModelAndView modelAndView = new ModelAndView("shopping-cart");
+        Person person = personService.findByEmail(authentication.getName());
+        modelAndView.addObject("shoppingCart", person.getShoppingCart());
+        modelAndView.addObject("locale", Locale.getDefault());
         return modelAndView;
     }
 
@@ -53,6 +55,15 @@ public class ShoppingCartController {
         personRepository.save(person);
         modelAndView.addObject("error", "Produto adicionado ao carrinho");
         modelAndView.addObject("product", product);
+        return modelAndView;
+    }
+
+    @PostMapping("/remove")
+    public ModelAndView removeOfCart(@RequestParam int productId, Authentication authentication){
+        ModelAndView modelAndView = new ModelAndView("shopping-cart");
+        Person person = personService.findByEmail(authentication.getName());
+        person.getShoppingCart().getProducts().remove(productRepository.findById(productId));
+        personRepository.save(person);
         return modelAndView;
     }
 

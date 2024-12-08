@@ -21,4 +21,12 @@ public class ShoppingCart {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Product.class)
     @JoinColumn(name = "products_id", referencedColumnName = "id", nullable = true)
     private List<Product> products;
+
+    public double total(){
+        double total = 0.0;
+        for(Product product : this.products){
+            total += product.getPrice();
+        }
+        return total;
+    }
 }
