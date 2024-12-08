@@ -29,4 +29,7 @@ public class Product {
     @NotNull(message = "Price must not be null")
     @DecimalMin("0.0")
     private double price;
+
+    @NotBlank(message = "Image url must no be blank")
+    private String imageUrl;
 }

@@ -165,56 +165,6 @@ footer {
     </div>
 </section>
 
-<!-- Seção de Categorias -->
-<section class="categories">
-    <h2>Categorias</h2>
-    <div class="category-list">
-        <div class="category-item">
-            <a href="/products/category/electronics">
-                <img src="images/electronics.jpg" alt="Eletrônicos">
-                <h3>Eletrônicos</h3>
-            </a>
-        </div>
-        <div class="category-item">
-            <a href="/products/category/fashion">
-                <img src="images/fashion.jpg" alt="Moda">
-                <h3>Moda</h3>
-            </a>
-        </div>
-        <div class="category-item">
-            <a href="/products/category/home">
-                <img src="images/home.jpg" alt="Casa">
-                <h3>Casa</h3>
-            </a>
-        </div>
-        <div class="category-item">
-            <a href="/products/category/sports">
-                <img src="images/sports.jpg" alt="Esportes">
-                <h3>Esportes</h3>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Seção de Ofertas Especiais -->
-<section class="special-offers">
-    <h2>Ofertas Especiais</h2>
-    <div class="offer-list">
-        <div class="offer-item">
-            <img src="images/offer1.jpg" alt="Oferta 1">
-            <h3>50% OFF em Eletrônicos Selecionados</h3>
-            <p>Desconto exclusivo para nossos clientes!</p>
-            <a href="/shop" class="cta-btn">Comprar Agora</a>
-        </div>
-        <div class="offer-item">
-            <img src="images/offer2.jpg" alt="Oferta 2">
-            <h3>Frete Grátis em Compras Acima de R$ 200</h3>
-            <p>Aproveite nosso frete grátis em compras acima de R$ 200.</p>
-            <a href="/shop" class="cta-btn">Aproveitar</a>
-        </div>
-    </div>
-</section>
-
 <!-- Seção de Produtos em Destaque -->
 <section class="featured-products">
     <h2>Produtos em Destaque</h2>
@@ -223,7 +173,7 @@ footer {
             <img th:src="@{${product.imageUrl}}" alt="Produto" />
             <h3 th:text="${product.name}"></h3>
             <p th:text="${product.price}"></p>
-            <a href="/products/product/{product.id}" class="cta-btn">Comprar</a>
+            <a th:href="@{/product/view-item/{id}(id=${product.id})}" class="cta-btn">Comprar</a>
         </div>
     </div>
 </section>

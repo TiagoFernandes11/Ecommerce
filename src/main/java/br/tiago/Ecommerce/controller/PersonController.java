@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 @Controller
 @RequestMapping("/person")
 public class PersonController {
@@ -118,7 +115,7 @@ public class PersonController {
 
     @GetMapping("/profile")
     public ModelAndView displayProfile(Authentication authentication){
-        Person person = personService.findByEmailI(authentication.getName());
+        Person person = personService.findByEmail(authentication.getName());
         ModelAndView modelAndView = new ModelAndView("profile");
         modelAndView.addObject("person", person);
         return modelAndView;

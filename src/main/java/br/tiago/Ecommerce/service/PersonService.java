@@ -2,6 +2,7 @@ package br.tiago.Ecommerce.service;
 
 import br.tiago.Ecommerce.constants.EcommerceConstants;
 import br.tiago.Ecommerce.model.Person;
+import br.tiago.Ecommerce.model.ShoppingCart;
 import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class PersonService {
         boolean isSaved = false;
         Person personEntity = personRepository.findByEmail(person.getEmail());
         if(personEntity == null){
+            person.setEmail(person.getEmail().toLowerCase());
             person.setPassword(passwordEncoder.encode(person.getPassword()));
             person.setRole(roleRepository.findByName(EcommerceConstants.USER));
             personRepository.save(person);
@@ -51,7 +53,11 @@ public class PersonService {
         return isSaved;
     }
 
-    public Person findByEmailI(String email){
+    public Person findByEmail(String email){
         return personRepository.findByEmail(email);
+    }
+
+    public ShoppingCart getShoppingCart(Person person){
+        return person.getShoppingCart();
     }
 }

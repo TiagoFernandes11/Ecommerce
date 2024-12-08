@@ -22,8 +22,11 @@ public class WebAppConfig {
                          request.requestMatchers("/","/home").permitAll()
                                  .requestMatchers("/person/register").permitAll()
                                  .requestMatchers("/person/login").permitAll()
+                                 .requestMatchers("/product/view-item/**").permitAll()
+                                 .requestMatchers("/cart/add").hasRole("USER")
                                  .requestMatchers("/person/update/**").hasRole("USER")
                                  .requestMatchers("/person/profile").hasRole("USER")
+                                 .requestMatchers("/product/register").hasRole("ADMIN")
                                  .anyRequest().authenticated()
                 );
 

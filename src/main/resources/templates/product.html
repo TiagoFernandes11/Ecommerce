@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados */
+        .product-details {
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-details img {
+            border-radius: 8px;
+            max-width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+
+        .product-details p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .product-details h4 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .product-details .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .product-details .btn-primary:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .product-details .btn-primary:focus {
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+        }
+
+        .breadcrumb {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+        }
+
+        .breadcrumb-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para o cabeçalho */
+        .header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header a {
+            font-size: 1.2rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Incluindo cabeçalho -->
+<div th:replace="~{fragments/header.html}"></div>
+
+<div class="container mt-5">
+    <!-- Breadcrumb para navegação -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Produtos</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${product.name}">Produto</li>
+        </ol>
+    </nav>
+
+    <!-- Detalhes do Produto -->
+    <div class="product-details">
+        <div th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+        <div class="row">
+            <!-- Imagem do Produto -->
+            <div class="col-md-6">
+                <img th:src="@{${product.imageUrl}}" alt="Imagem do Produto" class="img-fluid" />
+            </div>
+
+            <!-- Detalhes do Produto -->
+            <div class="col-md-6">
+                <h2 th:text="${product.name}"></h2>
+                <p th:text="${product.description}"></p>
+                <h4>Preço: R$ <span th:text="${product.price}"></span></h4>
+
+                <!-- Botão Adicionar ao Carrinho -->
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" th:name="productId" th:value="${product.id}" />
+                    <button type="submit" class="btn btn-primary">Adicionar ao Carrinho</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

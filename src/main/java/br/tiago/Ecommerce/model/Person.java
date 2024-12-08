@@ -31,4 +31,8 @@ public class Person {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = ShoppingCart.class)
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
+    private ShoppingCart shoppingCart;
 }
