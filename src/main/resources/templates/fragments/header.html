@@ -132,24 +132,25 @@
 
         <!-- Links de autenticação e carrinho -->
         <div class="auth-links">
-            <li sec:authorize="!isAuthenticated()">
+            <div sec:authorize="!isAuthenticated()">
                 <a href="/person/login">Login</a>
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <a href="/person/update/register">Minha Conta</a>
-            </li>
-            <li sec:authorize="isAuthenticated()">
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a href="/person/profile">Minha Conta</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
                 <a href="/person/logout">Sair</a>
-            </li>
+            </div>
 
             <!-- Carrinho de compras -->
-            <li>
+            <div>
                 <a href="/cart">
                     <span class="icon">&#x1F6D2;</span> <!-- Ícone de carrinho -->
                     <span class="cart-count" th:text="${cartCount}">0</span> <!-- Exibe a quantidade de itens no carrinho -->
                 </a>
-            </li>
+            </div>
         </div>
+
     </nav>
 </header>
 <!-- Fim do cabeçalho -->

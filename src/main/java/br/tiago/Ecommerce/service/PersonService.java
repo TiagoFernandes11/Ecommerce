@@ -1,7 +1,9 @@
 package br.tiago.Ecommerce.service;
 
+import br.tiago.Ecommerce.constants.EcommerceConstants;
 import br.tiago.Ecommerce.model.Person;
 import br.tiago.Ecommerce.repository.PersonRepository;
+import br.tiago.Ecommerce.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,9 @@ public class PersonService {
     PersonRepository personRepository;
 
     @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     public boolean save(Person person){
@@ -21,6 +26,7 @@ public class PersonService {
         Person personEntity = personRepository.findByEmail(person.getEmail());
         if(personEntity == null){
             person.setPassword(passwordEncoder.encode(person.getPassword()));
+            person.setRole(roleRepository.findByName(EcommerceConstants.USER));
             personRepository.save(person);
             isSaved = true;
         }
@@ -43,5 +49,9 @@ public class PersonService {
             isSaved = true;
         }
         return isSaved;
+    }
+
+    public Person findByEmailI(String email){
+        return personRepository.findByEmail(email);
     }
 }

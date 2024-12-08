@@ -1,7 +1,6 @@
 package br.tiago.Ecommerce.controller;
 
 import br.tiago.Ecommerce.model.Person;
-import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.service.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -114,6 +113,14 @@ public class PersonController {
         else {
             modelAndView.addObject("error", "Senha antiga é invalida ou as novas senhas não são iguais");
         }
+        return modelAndView;
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView displayProfile(Authentication authentication){
+        Person person = personService.findByEmailI(authentication.getName());
+        ModelAndView modelAndView = new ModelAndView("profile");
+        modelAndView.addObject("person", person);
         return modelAndView;
     }
 

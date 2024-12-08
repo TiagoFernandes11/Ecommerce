@@ -22,13 +22,14 @@ public class WebAppConfig {
                          request.requestMatchers("/","/home").permitAll()
                                  .requestMatchers("/person/register").permitAll()
                                  .requestMatchers("/person/login").permitAll()
-                                 .requestMatchers("/person/update/**").authenticated()
+                                 .requestMatchers("/person/update/**").hasRole("USER")
+                                 .requestMatchers("/person/profile").hasRole("USER")
                                  .anyRequest().authenticated()
                 );
 
         http.formLogin((login) ->
                 login.loginPage("/person/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/home")
                         .failureUrl("/person/login?error=true")
         );
 

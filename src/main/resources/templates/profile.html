@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <style>
+        /* Estilos gerais para a página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            margin-bottom: 30px;
+        }
+
+        .profile-details p {
+            font-size: 16px;
+            color: #555;
+            margin: 8px 0;
+        }
+
+        .profile-details strong {
+            color: #333;
+        }
+
+        /* Estilos para o link de editar perfil */
+        .profile-actions {
+            text-align: center;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para o cabeçalho, caso você tenha o fragmento de header */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Substitui o cabeçalho usando o fragmento -->
+<div th:replace="~{fragments/header.html}"></div>
+
+<!-- Conteúdo da página -->
+<div class="container">
+    <h1>Perfil do Usuário</h1>
+
+    <div class="profile-details">
+        <p><strong>Nome:</strong> <span th:text="${person.name}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${person.email}"></span></p>
+        <p><strong>Função:</strong> <span th:text="${person.role.name}"></span></p>
+    </div>
+
+    <div class="profile-actions">
+        <a href="/person/update/register" class="btn">Editar Perfil</a>
+    </div>
+</div>
+
+</body>
+</html>

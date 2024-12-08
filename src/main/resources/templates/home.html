@@ -1,11 +1,236 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Ecommerce</title>
+    <style>
+        /* Estilos básicos */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fa;
+}
+
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.cta-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Hero Section */
+.hero {
+    background: #007bff;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+.hero .cta-btn {
+    font-size: 1.1rem;
+}
+
+/* Categorias */
+.categories {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.categories h2 {
+    margin-bottom: 20px;
+}
+
+.category-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.category-item {
+    width: 200px;
+}
+
+.category-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.category-item h3 {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* Ofertas Especiais */
+.special-offers {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.offer-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.offer-item {
+    width: 300px;
+}
+
+.offer-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Produtos em Destaque */
+.featured-products {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.featured-products h2 {
+    margin-bottom: 20px;
+}
+
+.product-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.product-item {
+    width: 200px;
+    text-align: center;
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-item h3 {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+    </style>
 </head>
 <body>
-    <div th:replace="~{fragments/header.html}"></div>
-    <h1>Christ is the Lord</h1>
+<!-- Cabeçalho (inclusão do header) -->
+<div th:replace="~{fragments/header.html}"></div>
+
+<!-- Seção de boas-vindas -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Bem-vindo à nossa Loja!</h1>
+        <p>Encontre os melhores produtos com descontos incríveis.</p>
+        <a href="/shop" class="cta-btn">Comece a Comprar</a>
+    </div>
+</section>
+
+<!-- Seção de Categorias -->
+<section class="categories">
+    <h2>Categorias</h2>
+    <div class="category-list">
+        <div class="category-item">
+            <a href="/products/category/electronics">
+                <img src="images/electronics.jpg" alt="Eletrônicos">
+                <h3>Eletrônicos</h3>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="/products/category/fashion">
+                <img src="images/fashion.jpg" alt="Moda">
+                <h3>Moda</h3>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="/products/category/home">
+                <img src="images/home.jpg" alt="Casa">
+                <h3>Casa</h3>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="/products/category/sports">
+                <img src="images/sports.jpg" alt="Esportes">
+                <h3>Esportes</h3>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Ofertas Especiais -->
+<section class="special-offers">
+    <h2>Ofertas Especiais</h2>
+    <div class="offer-list">
+        <div class="offer-item">
+            <img src="images/offer1.jpg" alt="Oferta 1">
+            <h3>50% OFF em Eletrônicos Selecionados</h3>
+            <p>Desconto exclusivo para nossos clientes!</p>
+            <a href="/shop" class="cta-btn">Comprar Agora</a>
+        </div>
+        <div class="offer-item">
+            <img src="images/offer2.jpg" alt="Oferta 2">
+            <h3>Frete Grátis em Compras Acima de R$ 200</h3>
+            <p>Aproveite nosso frete grátis em compras acima de R$ 200.</p>
+            <a href="/shop" class="cta-btn">Aproveitar</a>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Produtos em Destaque -->
+<section class="featured-products">
+    <h2>Produtos em Destaque</h2>
+    <div class="product-list">
+        <div class="product-item" th:each="product : ${products}">
+            <img th:src="@{${product.imageUrl}}" alt="Produto" />
+            <h3 th:text="${product.name}"></h3>
+            <p th:text="${product.price}"></p>
+            <a href="/products/product/{product.id}" class="cta-btn">Comprar</a>
+        </div>
+    </div>
+</section>
+
+<!-- Rodapé -->
+<footer>
+    <p>&copy; 2024 Loja Ecommerce - Todos os direitos reservados</p>
+</footer>
 </body>
 </html>
