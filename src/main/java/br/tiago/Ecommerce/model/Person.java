@@ -28,7 +28,7 @@ public class Person {
     @Transient
     private String confirmPassword;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 

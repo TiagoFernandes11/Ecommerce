@@ -18,8 +18,12 @@ public class ShoppingCart {
     @Past
     private LocalDateTime dateTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Product.class)
-    @JoinColumn(name = "products_id", referencedColumnName = "id", nullable = true)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "cart_product",
+            joinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
+    )
     private List<Product> products;
 
     public double total(){

@@ -5,6 +5,7 @@ import br.tiago.Ecommerce.model.Product;
 import br.tiago.Ecommerce.model.ShoppingCart;
 import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.repository.ProductRepository;
+import br.tiago.Ecommerce.repository.ShoppingCartRepository;
 import br.tiago.Ecommerce.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,9 @@ public class ShoppingCartController {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    ShoppingCartRepository shoppingCartRepository;
+
     @GetMapping("")
     public ModelAndView diplayShoppingCart(Authentication authentication){
         ModelAndView modelAndView = new ModelAndView("shopping-cart");
@@ -52,6 +56,7 @@ public class ShoppingCartController {
             person.getShoppingCart().setProducts(new ArrayList<>());
         }
         person.getShoppingCart().getProducts().add(product);
+        shoppingCartRepository.save(person.getShoppingCart());
         personRepository.save(person);
         modelAndView.addObject("error", "Produto adicionado ao carrinho");
         modelAndView.addObject("product", product);
@@ -60,9 +65,10 @@ public class ShoppingCartController {
 
     @PostMapping("/remove")
     public ModelAndView removeOfCart(@RequestParam int productId, Authentication authentication){
-        ModelAndView modelAndView = new ModelAndView("shopping-cart");
+        ModelAndView modelAndView = new ModelAndView("redirect:/shopping-cart");
         Person person = personService.findByEmail(authentication.getName());
         person.getShoppingCart().getProducts().remove(productRepository.findById(productId));
+        shoppingCartRepository.save(person.getShoppingCart());
         personRepository.save(person);
         return modelAndView;
     }
