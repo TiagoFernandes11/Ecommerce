@@ -76,8 +76,12 @@ public class ShoppingCartController {
         ModelAndView modelAndView = new ModelAndView("redirect:/cart");
         Person person = personService.findByEmail(authentication.getName());
         Product product = productRepository.findById(productId);
-        CartItem cartItem = cartItemRepository.findByProduct(product);
-        person.getShoppingCart().getCartItems().remove(cartItem);
+        CartItem cartItem = person.getShoppingCart().getCartItemByProduct(product);
+        if(cartItem.getQuantity() > 1){
+            cartItem.decreaseQuantity();
+        } else {
+            person.getShoppingCart().getCartItems().remove(cartItem);
+        }
         shoppingCartRepository.save(person.getShoppingCart());
         personRepository.save(person);
         return modelAndView;
