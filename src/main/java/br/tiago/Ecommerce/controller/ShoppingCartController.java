@@ -1,8 +1,10 @@
 package br.tiago.Ecommerce.controller;
 
+import br.tiago.Ecommerce.model.CartItem;
 import br.tiago.Ecommerce.model.Person;
 import br.tiago.Ecommerce.model.Product;
 import br.tiago.Ecommerce.model.ShoppingCart;
+import br.tiago.Ecommerce.repository.CartItemRepository;
 import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.repository.ProductRepository;
 import br.tiago.Ecommerce.repository.ShoppingCartRepository;
@@ -36,6 +38,9 @@ public class ShoppingCartController {
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
 
+    @Autowired
+    CartItemRepository cartItemRepository;
+
     @GetMapping("")
     public ModelAndView diplayShoppingCart(Authentication authentication){
         ModelAndView modelAndView = new ModelAndView("shopping-cart");
@@ -46,28 +51,33 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/add")
-    public ModelAndView addToCart(@RequestParam int productId, Authentication authentication){
-        ModelAndView modelAndView = new ModelAndView("product");
+    public ModelAndView addToCart(@RequestParam int productId, Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/cart");
+        Person person = personRepository.findByEmail(authentication.getName());
         Product product = productRepository.findById(productId);
-        Person person = personService.findByEmail(authentication.getName());
+        CartItem cartItem = new CartItem(product);
         if(person.getShoppingCart() == null){
             person.setShoppingCart(new ShoppingCart());
             person.getShoppingCart().setDateTime(LocalDateTime.now());
-            person.getShoppingCart().setProducts(new ArrayList<>());
+            person.getShoppingCart().setCartItems(new ArrayList<CartItem>());
         }
-        person.getShoppingCart().getProducts().add(product);
-        shoppingCartRepository.save(person.getShoppingCart());
+        if(person.getShoppingCart().hasProduct(product)){
+            person.getShoppingCart().getCartItemByProduct(product).increaseQuantity();
+        } else {
+            person.getShoppingCart().getCartItems().add(cartItem);
+        }
         personRepository.save(person);
-        modelAndView.addObject("error", "Produto adicionado ao carrinho");
-        modelAndView.addObject("product", product);
         return modelAndView;
     }
 
+
     @PostMapping("/remove")
     public ModelAndView removeOfCart(@RequestParam int productId, Authentication authentication){
-        ModelAndView modelAndView = new ModelAndView("redirect:/shopping-cart");
+        ModelAndView modelAndView = new ModelAndView("redirect:/cart");
         Person person = personService.findByEmail(authentication.getName());
-        person.getShoppingCart().getProducts().remove(productRepository.findById(productId));
+        Product product = productRepository.findById(productId);
+        CartItem cartItem = cartItemRepository.findByProduct(product);
+        person.getShoppingCart().getCartItems().remove(cartItem);
         shoppingCartRepository.save(person.getShoppingCart());
         personRepository.save(person);
         return modelAndView;
