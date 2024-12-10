@@ -35,11 +35,17 @@ public class PersonService {
         return isSaved;
     }
 
-    public void updateRegister(String name, String email, Authentication authentication){
+    public boolean updateRegister(String name, String email, Authentication authentication){
+        boolean isUpdated = false;
         Person person = personRepository.findByEmail(authentication.getName());
+        if(personRepository.findByEmail(email) != null){
+            return isUpdated;
+        }
         person.setName(name);
         person.setEmail(email);
         personRepository.save(person);
+        isUpdated = true;
+        return isUpdated;
     }
 
     public boolean updatePassword(String oldPassword, String newPassword, String confirmNewPassword, Authentication authentication){

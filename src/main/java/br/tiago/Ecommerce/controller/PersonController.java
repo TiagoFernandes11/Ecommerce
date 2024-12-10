@@ -50,14 +50,8 @@ public class PersonController {
     }
 
     @GetMapping("/login")
-    public ModelAndView displayLogin(){
-        ModelAndView modelAndView = new ModelAndView("login");
-        return modelAndView;
-    }
-
-    @PostMapping("/login")
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-                              @RequestParam(value = "logout", required = false) String logout){
+    public ModelAndView displayLogin(@RequestParam(value = "error", required = false) String error,
+                                     @RequestParam(value = "logout", required = false) String logout){
         ModelAndView modelAndView = new ModelAndView("login");
         if(error != null){
             modelAndView.addObject("error", "Credenciais invalidas");
@@ -67,6 +61,12 @@ public class PersonController {
             modelAndView.addObject("error", "Logout efetuado com sucesso");
             return modelAndView;
         }
+        return modelAndView;
+    }
+
+    @PostMapping("/login")
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         return modelAndView;
     }
@@ -88,8 +88,10 @@ public class PersonController {
     @PostMapping("/update/register")
     public ModelAndView updateRegister(@RequestParam String name, @RequestParam String email, Authentication authentication){
         ModelAndView modelAndView = new ModelAndView("update-user");
-        personService.updateRegister(name, email, authentication);
-        modelAndView.addObject("error", "cadastro alterado com sucesso");
+        if(personService.updateRegister(name, email, authentication)){
+            modelAndView.addObject("error", "cadastro alterado com sucesso");
+        }
+        modelAndView.addObject("error", "O novo e-mail ja está em uso em outra conta");
         return modelAndView;
     }
 
