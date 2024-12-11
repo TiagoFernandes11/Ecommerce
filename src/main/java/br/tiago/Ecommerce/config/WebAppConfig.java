@@ -23,6 +23,7 @@ public class WebAppConfig {
                                  .requestMatchers("/person/register").permitAll()
                                  .requestMatchers("/person/login").permitAll()
                                  .requestMatchers("/product/view-item/**").permitAll()
+                                 .requestMatchers("/assets/**").permitAll()
                                  .requestMatchers("/cart/add").hasRole("USER")
                                  .requestMatchers("/cart/remove").hasRole("USER")
                                  .requestMatchers("/cart").hasRole("USER")

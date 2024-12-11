@@ -1,0 +1,120 @@
+/* Resetando margens e preenchimentos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos gerais do body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Cabeçalho fixo no topo */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Logo no cabeçalho */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ecf0f1;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            color: #e74c3c;
+        }
+
+        /* Menu de navegação no cabeçalho */
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end; /* Alinha os itens à direita */
+            gap: 20px; /* Espaçamento entre os itens */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            font-size: 16px;
+            border-radius: 4px; /* Bordas arredondadas */
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #34495e;
+        }
+
+        /* Estilos para o formulário */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin-top: 100px; /* Deixa espaço abaixo do cabeçalho fixo */
+            margin: 100px auto 0 auto; /* Centraliza o formulário na tela */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-container .error {
+            color: red;
+            font-size: 0.875em;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
