@@ -4,7 +4,6 @@ import br.tiago.Ecommerce.model.CartItem;
 import br.tiago.Ecommerce.model.Person;
 import br.tiago.Ecommerce.model.Product;
 import br.tiago.Ecommerce.model.ShoppingCart;
-import br.tiago.Ecommerce.repository.CartItemRepository;
 import br.tiago.Ecommerce.repository.PersonRepository;
 import br.tiago.Ecommerce.repository.ProductRepository;
 import br.tiago.Ecommerce.repository.ShoppingCartRepository;
@@ -37,9 +36,6 @@ public class ShoppingCartController {
 
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
-
-    @Autowired
-    CartItemRepository cartItemRepository;
 
     @GetMapping("")
     public ModelAndView diplayShoppingCart(Authentication authentication){

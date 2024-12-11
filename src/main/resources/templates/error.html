@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro - E-commerce</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+h1 {
+    color: #e74c3c;
+    font-size: 2em;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Opa, algo deu errado!</h1>
+    <p>Desculpe, mas não conseguimos encontrar a página ou ocorreu um erro no servidor.</p>
+
+    <!-- Exibe um código de erro se estiver presente -->
+    <div th:if="${errorCode}">
+        <p><strong>Código de erro:</strong> <span th:text="${errorCode}"></span></p>
+    </div>
+
+    <p>Por favor, tente novamente mais tarde ou <a href="/" title="Voltar para a página inicial">volte para a página inicial</a>.</p>
+</div>
+</body>
+</html>
