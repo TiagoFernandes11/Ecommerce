@@ -16,6 +16,8 @@ E um sistema de carrinho
 
 ![image](https://github.com/user-attachments/assets/d9b79eab-4792-4132-a5ba-335d4cc2c37c)
 
+![image](https://github.com/user-attachments/assets/99a24ff2-fe88-4776-abb3-0d85d828b376)
+
 
 
 
