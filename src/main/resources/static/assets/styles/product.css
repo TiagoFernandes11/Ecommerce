@@ -1,6 +1,7 @@
 
         /* Estilos personalizados */
         .product-details {
+            background-color: whitesmoke;
             margin-top: 30px;
             padding: 30px;
             border-radius: 8px;
@@ -56,7 +57,7 @@
         }
 
         .breadcrumb {
-            background-color: #f8f9fa;
+            background-color: #D4EBF8;
             border-radius: 8px;
             margin-bottom: 30px;
         }

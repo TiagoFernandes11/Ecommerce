@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Produtos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/assets/styles/products.css">k
+    <link rel="stylesheet" href="/assets/styles/products.css">
 </head>
 <body>
 
-<header>
-    <h1>Catálogo de Produtos</h1>
-</header>
+<div th:replace="~{fragments/header.html}"></div>
 
 <div class="container">
     <div>
@@ -23,31 +21,39 @@
             <option value="price&sortDir=desc" th:selected="${sort == 'price&sortDir=desc'}">Preço (Maior - Menor)</option>
         </select>
     </div>
+</div>
 
-    <div class="products">
-        <div th:each="product : ${products}">
-            <div class="product">
-                <img th:src="@{${product.imageUrl}}" th:alt="${product.name}">
-                <h3 th:text="${product.name}"></h3>
-                <p>Descrição do produto</p>
-                <p class="price" th:text="'R$ ' + ${product.price}"></p>
-            </div>
+<div class="products">
+    <div th:each="product : ${products}">
+        <div class="product">
+            <!-- Placeholder para imagem -->
+            <img class="product-img" th:src="@{${product.imageUrl}}" th:alt="${product.name}" 
+                 src="https://via.placeholder.com/150?text=Imagem+Indisponível" />
+            <h3 class="product-name" th:text="${product.name}" th:if="${product.name != null}">Nome do Produto</h3>
+            <p class="product-description" th:text="'Descrição do produto'" th:if="${product.description == null}">Descrição do produto</p>
+            <p class="product-price" th:text="'R$ ' + ${product.price}" th:if="${product.price != null}">R$ 0,00</p>
+            <a th:href="@{/product/view-item/{id}(id=${product.id})}" class="cta-btn">Comprar</a>
         </div>
     </div>
+</div>
 
-    <div class="pagination">
-            <span th:if="${page > 0}">
-                <a th:href="@{/products(page=${page - 1}, sort=${sort})}">&laquo; Anterior</a>
-            </span>
+<div class="pagination">
+    <span th:if="${page > 0}">
+        <a th:href="@{/products(pageNum=${page - 1}, sortField=${sortField}, sortDir=${sortDir})}">&laquo; Anterior</a>
+    </span>
 
-        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                <a th:href="@{/products(page=${i}, sort=${sort})}" th:text="${i + 1}" th:classappend="${i == page} ? 'active' : ''"></a>
-            </span>
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:href="@{/products(pageNum=${i}, sortField=${sortField}, sortDir=${sortDir})}" th:text="${i}"
+           th:classappend="${i == page} ? 'active' : ''"></a>
+    </span>
 
-        <span th:if="${page < totalPages - 1}">
-                <a th:href="@{/products(page=${page + 1}, sort=${sort})}">Próximo &raquo;</a>
-            </span>
-    </div>
+    <span th:if="${page < totalPages}">
+        <a th:href="@{/products(pageNum=${page + 1}, sortField=${sortField}, sortDir=${sortDir})}">Próximo &raquo;</a>
+    </span>
+</div>
+
+
+
 </div>
 
 </body>

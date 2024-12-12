@@ -24,8 +24,9 @@ public class HomeController {
     public ModelAndView displayHome(){
         ModelAndView modelAndView = new ModelAndView("home");
         List<Product> products = productRepository.findAll();
+        List<Product> fiveproducts = products.subList(0,4);
         if(!products.isEmpty()){
-            modelAndView.addObject("products", products);
+            modelAndView.addObject("products", fiveproducts);
         }
         return modelAndView;
     }

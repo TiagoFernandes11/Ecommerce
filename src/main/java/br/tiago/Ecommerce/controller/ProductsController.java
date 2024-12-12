@@ -28,6 +28,9 @@ public class ProductsController {
         modelAndView.addObject("products", products);
         modelAndView.addObject("page", pageNum);
         modelAndView.addObject("totalPages", productPage.getTotalPages());
+        modelAndView.addObject("pageNum", pageNum);
+        modelAndView.addObject("sortField", sortField);
+        modelAndView.addObject("sortDir", sortDir);
         return modelAndView;
     }
 }
