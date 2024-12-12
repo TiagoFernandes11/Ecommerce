@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/styles/products.css">k
+</head>
+<body>
+
+<header>
+    <h1>Catálogo de Produtos</h1>
+</header>
+
+<div class="container">
+    <div>
+        <label for="sort">Ordenar por: </label>
+        <select id="sort" name="sort" onchange="window.location.href = '/produtos?page=1&sort=' + this.value">
+            <option value="name_asc" th:selected="${sort == 'name_asc'}">Nome (A-Z)</option>
+            <option value="name_desc" th:selected="${sort == 'name_desc'}">Nome (Z-A)</option>
+            <option value="price_asc" th:selected="${sort == 'price_asc'}">Preço (Menor - Maior)</option>
+            <option value="price_desc" th:selected="${sort == 'price_desc'}">Preço (Maior - Menor)</option>
+        </select>
+    </div>
+
+    <div class="products">
+        <div th:each="product : ${products}">
+            <div class="product">
+                <img th:src="@{${product.image}}" th:alt="${product.name}">
+                <h3 th:text="${product.name}"></h3>
+                <p>Descrição do produto</p>
+                <p class="price" th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 2, 2)}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+            <span th:if="${page.number > 0}">
+                <a th:href="@{/produtos(page=${page.number - 1}, sort=${sort})}">&laquo; Anterior</a>
+            </span>
+
+        <span th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}">
+                <a th:href="@{/produtos(page=${i}, sort=${sort})}" th:text="${i + 1}" th:classappend="${i == page.number} ? 'active' : ''"></a>
+            </span>
+
+        <span th:if="${page.number < page.totalPages - 1}">
+                <a th:href="@{/produtos(page=${page.number + 1}, sort=${sort})}">Próximo &raquo;</a>
+            </span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Finanças Pessoais</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/styles/login.css">
-</head>
-<body>
-<div th:replace="~{fragments/header.html}"></div>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/assets/styles/login.css" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header.html}"></div>
 
-<div class="login-container">
-    <h3>Entrar na sua conta</h3>
-    <div th:if="${error}">
-        <p th:text="${error}"></p>
-    </div>
-    <form th:action="@{/person/login}" method="post">
-        <div class="form-group">
+    <div class="body">
+      <div class="login-container">
+        <h3>Entrar na sua conta</h3>
+        <div th:if="${error}">
+          <p th:text="${error}"></p>
+        </div>
+        <form th:action="@{/person/login}" method="post">
+          <div class="form-group">
             <label for="username">Email</label>
-            <input type="email" class="form-control" id="username" name="username" placeholder="Digite seu Email" required />
-        </div>
-        <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Digite seu Email"
+              required
+            />
+          </div>
+          <div class="form-group">
             <label for="password">Senha</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required />
-        </div>
-        <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
+          <div class="form-group">
             <button type="submit" class="btn-custom btn-block">Entrar</button>
+          </div>
+        </form>
+        <div class="text-center">
+          <p>
+            Ainda não tem uma conta? <a href="/person/register">Cadastre-se</a>
+          </p>
         </div>
-    </form>
-    <div class="text-center">
-        <p>Ainda não tem uma conta? <a href="/person/register">Cadastre-se</a></p>
+      </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

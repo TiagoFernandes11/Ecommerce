@@ -1,27 +1,30 @@
 @charset "UTF-8";
 
+header{
+    position: fixed;
+}
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f7fa;
+    background-color: #D4EBF8;
 }
 
 h1, h2, h3 {
     font-family: 'Arial', sans-serif;
-    color: #333;
+    color: #0A3981;
 }
 
 a {
     text-decoration: none;
-    color: #007bff;
+    color: #1F509A;
 }
 
 .cta-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #1F509A;
     color: #fff;
     border-radius: 5px;
     margin-top: 10px;
@@ -33,10 +36,14 @@ a {
 
 /* Hero Section */
 .hero {
-    background: #007bff;
+    background: #1F509A;
     color: white;
     text-align: center;
     padding: 100px 20px;
+}
+
+.hero-content{
+    padding-top: 50px;
 }
 
 .hero h1 {
@@ -84,7 +91,7 @@ a {
 
 /* Ofertas Especiais */
 .special-offers {
-    background-color: #f9f9f9;
+    background-color: #D4EBF8;
     padding: 40px 20px;
     text-align: center;
 }
@@ -140,7 +147,7 @@ a {
 /* Rodapé */
 footer {
     background-color: #333;
-    color: #fff;
+    color: #D4EBF8;
     text-align: center;
     padding: 10px 0;
 }
